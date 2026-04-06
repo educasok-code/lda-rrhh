@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard RRHH Premium - Preguntas Estratégicas</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-red: #da291c;
+            --primary-red-light: #fce8e6;
+            --eraneos-blue: #0A3A60;
+            --eraneos-light: #e6f0f9;
+            --capgemini-gray: #2B2D42;
+            --capgemini-light: #f0f1f5;
+            --bg-color: #f4f7fa;
+            --text-main: #2d3748;
+            --text-muted: #718096;
+            --card-bg: #ffffff;
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --radius-lg: 16px;
+            --radius-md: 10px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Hero Header */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-red) 0%, #8b1208 100%);
+            color: white;
+            padding: 60px 20px 80px;
+            text-align: center;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            font-weight: 800;
+            margin: 0 0 10px 0;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            font-weight: 300;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: -40px auto 60px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Impressive Glassmorphism Index */
+        .index-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .index-panel h2 {
+            text-align: center;
+            font-size: 2em;
+            color: var(--text-main);
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
+
+        .index-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        @media(max-width: 768px) {
+            .index-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .index-card {
+            background: var(--bg-color);
+            border-radius: var(--radius-md);
+            padding: 25px;
+            border-left: 6px solid var(--text-muted);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .index-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .index-card.eraneos {
+            border-left-color: var(--eraneos-blue);
+            background: var(--eraneos-light);
+        }
+
+        .index-card.cap {
+            border-left-color: var(--capgemini-gray);
+            background: var(--capgemini-light);
+        }
+
+        .index-card h3 {
+            margin-top: 0;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .index-card.eraneos h3 {
+            color: var(--eraneos-blue);
+        }
+
+        .index-card.cap h3 {
+            color: var(--capgemini-gray);
+        }
+
+        .index-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .index-list li {
+            margin-bottom: 10px;
+        }
+
+        .index-list a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            font-size: 0.95em;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .index-list a::before {
+            content: '→';
+            margin-right: 8px;
+            color: var(--primary-red);
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+
+        .index-list a:hover {
+            color: var(--primary-red);
+        }
+
+        .index-list a:hover::before {
+            transform: translateX(5px);
+        }
+
+        /* Provider Sections */
+        .provider-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 40px;
+            border-radius: var(--radius-lg);
+            color: white;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .provider-header h2 {
+            margin: 0;
+            font-size: 2.2em;
+            letter-spacing: 2px;
+        }
+
+        .header-eraneos {
+            background: linear-gradient(135deg, var(--eraneos-blue) 0%, #06233b 100%);
+        }
+
+        .header-cap {
+            background: linear-gradient(135deg, var(--capgemini-gray) 0%, #151621 100%);
+        }
+
+        .block-container {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-sm);
+            border-top: 4px solid var(--text-muted);
+            transition: box-shadow 0.3s;
+        }
+
+        .block-container:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .block-container.eraneos-block {
+            border-top-color: var(--eraneos-blue);
+        }
+
+        .block-container.cap-block {
+            border-top-color: var(--capgemini-gray);
+        }
+
+        .block-title {
+            font-size: 1.5em;
+            color: var(--text-main);
+            margin-top: 0;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+        }
+
+        .block-title span.number {
+            background: var(--primary-red);
+            color: white;
+            width: 36px;
+            height: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            margin-right: 15px;
+            font-size: 0.9em;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+        }
+
+        /* Question Cards */
+        .q-card {
+            background: #ffffff;
+            border: 1px solid #edf2f7;
+            border-radius: var(--radius-md);
+            padding: 25px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .q-card::before {
+            content: 'Q';
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: var(--text-muted);
+            color: white;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .eraneos-block .q-card::before {
+            background: var(--eraneos-blue);
+        }
+
+        .cap-block .q-card::before {
+            background: var(--capgemini-gray);
+        }
+
+        .q-text {
+            font-weight: 600;
+            font-size: 1.05em;
+            color: #2d3748;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .answer-box {
+            background-color: #f7fafc;
+            border: 2px dashed #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            min-height: 100px;
+            color: #4a5568;
+            font-style: italic;
+            transition: all 0.3s;
+            outline: none;
+            cursor: text;
+        }
+
+        .answer-box:focus {
+            background-color: #ffffff;
+            border: 2px solid var(--primary-red);
+            font-style: normal;
+            box-shadow: 0 0 0 4px var(--primary-red-light);
+        }
+
+        .answer-box:empty:before {
+            content: "✍️ Haz clic aquí para documentar la respuesta...";
+            color: #a0aec0;
+        }
+
+        .bonus-card {
+            border: 2px solid #ecc94b;
+            background: #fffff0;
+        }
+
+        .bonus-card::before {
+            background: #d69e2e;
+            content: '★';
+            font-size: 14px;
+        }
+
+        /* Go to top button */
+        .go-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-red);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: var(--shadow-md);
+            font-size: 24px;
+            z-index: 100;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .go-top:hover {
+            transform: translateY(-5px);
+            background: #b01e15;
+        }
+
+        @media print {
+
+            .hero,
+            .index-panel,
+            .go-top {
+                display: none;
+            }
+
+            body {
+                background: white;
+            }
+
+            .container {
+                margin: 0;
+                max-width: 100%;
+            }
+
+            .block-container {
+                box-shadow: none;
+                border: 1px solid #eee;
+                margin-bottom: 20px;
+                padding: 20px;
+                break-inside: avoid;
+            }
+
+            .q-card {
+                border: none;
+                padding: 10px 0;
+            }
+
+            .answer-box {
+                border: 1px solid #ccc;
+                min-height: 80px;
+            }
+
+            .answer-box:empty:before {
+                content: "";
+            }
+        }
+    </style>
+</head>
+
+<body id="top">
+
+    <div class="hero">
+        <h1>Dashboard Estratégico de RRHH</h1>
+        <p>Batería de Preguntas de Alto Impacto para la Reunión Final de Selección Agile 2026</p>
+    </div>
+
+    <div class="container">
+
+        <!-- INDEX SECTION -->
+        <div class="index-panel">
+            <h2>📑 Índice de Contenidos</h2>
+            <div class="index-grid">
+
+                <!-- ERANEOS INDEX -->
+                <div class="index-card eraneos">
+                    <h3>ERANEOS</h3>
+                    <ul class="index-list">
+                        <li><a href="#era-1">1. Talento e Impacto en el Empleo</a></li>
+                        <li><a href="#era-2">2. El Colectivo Externalizado</a></li>
+                        <li><a href="#era-3">3. Evaluación y Retribución</a></li>
+                        <li><a href="#era-4">4. Mandos Intermedios y Relaciones Laborales</a></li>
+                        <li><a href="#era-5">5. Planes de Carrera y Fidelización</a></li>
+                        <li><a href="#era-6">6. Atracción de Talento y Burnout</a></li>
+                        <li><a href="#era-7">7. Organización del Trabajo</a></li>
+                        <li><a href="#era-8">8. KPIs y Sostenibilidad Post-Proyecto</a></li>
+                        <li><a href="#era-9">9. Inteligencia Artificial (IA)</a></li>
+                        <li><a href="#era-10">★ Pregunta de Cierre</a></li>
+                    </ul>
+                </div>
+
+                <!-- CAP GEMINI INDEX -->
+                <div class="index-card cap">
+                    <h3>CAP GEMINI</h3>
+                    <ul class="index-list">
+                        <li><a href="#cap-1">1. Oficina de Producto e Impacto en Empleo</a></li>
+                        <li><a href="#cap-2">2. El Colectivo Externalizado</a></li>
+                        <li><a href="#cap-3">3. Evaluación y Retribución</a></li>
+                        <li><a href="#cap-4">4. Mandos Intermedios y Relaciones Laborales</a></li>
+                        <li><a href="#cap-5">5. Planes de Carrera y Fidelización</a></li>
+                        <li><a href="#cap-6">6. Atracción de Talento y Burnout</a></li>
+                        <li><a href="#cap-7">7. Organización del Trabajo</a></li>
+                        <li><a href="#cap-8">8. Inteligencia Artificial (IA)</a></li>
+                        <li><a href="#cap-10">★ Pregunta de Cierre</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- ERANEOS SECTION                                -->
+        <!-- ============================================== -->
+        <div class="provider-header header-eraneos">
+            <h2>REUNIÓN: ERANEOS</h2>
+            <span>Enfoque pragmático & Coach the Coaches</span>
+        </div>
+
+        <div id="era-1" class="block-container eraneos-block">
+            <h3 class="block-title"><span class="number">1</span> Talento e Impacto en el Empleo</h3>
+
+            <div class="q-card">
+                <span class="q-text">1.1 ¿Cuántos puestos de trabajo estimáis que quedarán obsoletos o redefinidos
+                    irreversiblemente? ¿Cuál fue el ratio de personas que no lograron adaptarse en proyectos
+                    anteriores?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+            <div class="q-card">
+                <span class="q-text">1.2 ¿Estima vuestra propuesta que LDA necesitará incorporar nuevas posiciones netas
+                    (ej. Product Owners senior) externas?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+            <div class="q-card">
+                <span class="q-text">1.3 Cuando un empleado LDA no puede asumir el nuevo rol ágil, ¿qué protocolo
+                    recomendáis a RRHH: reubicación interna, plan de salida o convivencia con el modelo antiguo?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+            <div class="q-card">
+                <span class="q-text">1.4 ¿Existen implicaciones legales o de Convenio Colectivo en la reclasificación de
+                    categorías (de Jefe de Área a Scrum Master)? ¿Habéis gestionado impugnaciones?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+        </div>
+
+        <div id="era-2" class="block-container eraneos-block">
+            <h3 class="block-title"><span class="number">2</span> El Colectivo Externalizado</h3>
+
+            <div class="q-card">
+                <span class="q-text">2.1 ¿Cómo se gestiona la transformación con personal que no depende de LDA sin que
+                    RRHH incurra en cesión ilegal de trabajadores (art. 43 ET)?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+        </div>
+
+        <div id="era-3" class="block-container eraneos-block">
+            <h3 class="block-title"><span class="number">3</span> Evaluación y Retribución</h3>
+
+            <div class="q-card">
+                <span class="q-text">3.1 ¿Cuándo es el momento óptimo para rediseñar la evaluación del desempeño? ¿Qué
+                    ocurre si mantenemos los KPIs individuales?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+            <div class="q-card">
+                <span class="q-text">3.2 ¿Cómo evaluáis a un PO o Scrum Master sin caer en métricas de actividad
+                    (tickets) que distorsionen el resultado real?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+            <div class="q-card">
+                <span class="q-text">3.3 ¿Recomendáis vincular bonus a OKRs trimestrales de equipo? ¿Qué impacto tiene
+                    esto en los acuerdos con el Comité de Empresa?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+            <div class="q-card">
+                <span class="q-text">3.4 ¿Cómo abordar la retribución variable de mandos intermedios que pasan a
+                    "facilitadores" y pierden métricas como "tamaño del equipo"?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+        </div>
+
+        <div id="era-4" class="block-container eraneos-block">
+            <h3 class="block-title"><span class="number">4</span> Mandos Intermedios y Relaciones Laborales</h3>
+            <div class="q-card">
+                <span class="q-text">4.1 ¿Cuál es vuestro plan si un mando intermedio clave rechaza activamente la
+                    transformación? ¿Recomendáis la desvinculación por incompatibilidad cultural?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+            <div class="q-card">
+                <span class="q-text">4.2 ¿Cómo se gestiona el duelo (pérdida de estatus/ego) al disolver jerarquías?
+                    ¿Habéis medido el absentismo en este colectivo?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+            <div class="q-card">
+                <span class="q-text">4.3 En vuestras referencias (Santander, Mapfre), ¿qué porcentaje de la capa media
+                    sobrevivió en el mismo rol?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+        </div>
+
+        <div id="era-5" class="block-container eraneos-block">
+            <h3 class="block-title"><span class="number">5</span> Planes de Carrera y Fidelización</h3>
+            <div class="q-card">
+                <span class="q-text">5.1 ¿Cómo se formaliza contractualmente a un Scrum Master si no aparece en el
+                    Convenio Colectivo de Seguros?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+            <div class="q-card">
+                <span class="q-text">5.2 ¿Cómo conviven el modelo tradicional jerárquico y el nuevo modelo ágil
+                    sin generar agravios comparativos?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+            <div class="q-card">
+                <span class="q-text">5.3 Vuestro modelo forma talento interno. ¿Riesgo de fuga al mercado? ¿Utilizáis
+                    cláusulas de permanencia?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+        </div>
+
+        <div id="era-6" class="block-container eraneos-block">
+            <h3 class="block-title"><span class="number">6</span> Atracción de Talento y Burnout</h3>
+            <div class="q-card">
+                <span class="q-text">6.1 ¿Cómo compite LDA atrayendo talento ágil senior contra empresas pure-tech?
+                    ¿Tenéis benchmarks salariales actualizados?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+            <div class="q-card">
+                <span class="q-text">6.2 ¿Cómo prevenís el burnout y gestionáis la sobrecarga operativa durante la fase
+                    de escalado?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+        </div>
+
+        <div id="era-7" class="block-container eraneos-block">
+            <h3 class="block-title"><span class="number">7</span> Organización del Trabajo</h3>
+            <div class="q-card">
+                <span class="q-text">7.1 ¿Cómo recomendáis gestionar las vacaciones de un miembro en un squad activo en
+                    pleno sprint para no romper el ritmo?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+
+        </div>
+
+        <div id="era-8" class="block-container eraneos-block">
+            <h3 class="block-title"><span class="number">8</span> KPIs y Sostenibilidad Post-Proyecto</h3>
+
+            <div class="q-card">
+                <span class="q-text">8.1 ¿Si los coaches internos que formáis (ratio 1:4) se marchan, la reposición
+                    recae enteramente sobre RRHH de LDA? ¿Hay plan de contingencia?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+        </div>
+
+        <div id="era-9" class="block-container eraneos-block">
+            <h3 class="block-title"><span class="number">9</span> Inteligencia Artificial</h3>
+            <div class="q-card">
+                <span class="q-text">9.1 ¿Qué herramienta concreta de IA se usará para PO/SMs según indicáis? ¿Cómo
+                    afecta a la privacidad laboral (RGPD)?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+        </div>
+
+        <div id="era-10" class="block-container eraneos-block bonus-card">
+            <h3 class="block-title" style="color: #b7791f;"><span class="number" style="background: #d69e2e;">★</span>
+                Pregunta de Cierre</h3>
+            <div class="q-card" style="border:none; box-shadow:none; padding-top:0;">
+                <span class="q-text" style="color: #975a16; font-size: 1.2em;">¿Cuál es, en vuestra experiencia, la
+                    razón principal de fracaso de estas transformaciones y qué riesgo concreto detectáis en LDA?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- CAP GEMINI SECTION                             -->
+        <!-- ============================================== -->
+        <div style="margin-top: 80px;"></div>
+        <div class="provider-header header-cap">
+            <h2>REUNIÓN: CAP GEMINI</h2>
+            <span>Oficina de Producto & Value Streams</span>
+        </div>
+
+        <div id="cap-1" class="block-container cap-block">
+            <h3 class="block-title"><span class="number">1</span> Oficina de Producto e Impacto en Empleo</h3>
+            <div class="q-card">
+                <span class="q-text">1.1 ¿Cuántos puestos obsoletos estimáis? ¿Cuál fue el ratio de adaptación en
+                    proyectos comparables (ej. AXA, Allianz)?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+            <div class="q-card">
+                <span class="q-text">1.2 Vuestros "Acting POs" asumirán el rol al inicio. ¿Estimáis que LDA necesitará
+                    contrataciones externas netas a futuro?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+            <div class="q-card">
+                <span class="q-text">1.3 ¿Qué protocolo usar si un profesional no asume el nuevo rol ágil: reubicación,
+                    plan de salida o modelo antiguo?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+            <div class="q-card">
+                <span class="q-text">1.4 ¿Implicaciones legales/Convenio en reclasificación (Jefe de Área a Product
+                    Owner)? </span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+        </div>
+
+        <div id="cap-2" class="block-container cap-block">
+            <h3 class="block-title"><span class="number">2</span> El Colectivo Externalizado</h3>
+            <div class="q-card">
+                <span class="q-text">2.1 ¿Cómo trabajarán vuestros Acting POs dando directrices a los proveedores de LDA
+                    sin generar riesgo de cesión ilegal (art. 43 ET)?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+
+        </div>
+
+        <div id="cap-3" class="block-container cap-block">
+            <h3 class="block-title"><span class="number">3</span> Evaluación y Retribución</h3>
+            <div class="q-card">
+                <span class="q-text">3.1 ¿Cómo se conecta vuestro "Modelo de Capacidades" de equipo con el sistema de
+                    evaluación del desempeño individual desde RRHH?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+            <div class="q-card">
+                <span class="q-text">3.2 ¿Tenéis experiencia implantando retribución por OKRs trimestrales en el sector
+                    seguros de España? ¿Acuerdos con el Comité?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+            <div class="q-card">
+                <span class="q-text">3.3 ¿Cómo abordar la queja de mandos intermedios que pierden el bonus ligado al
+                    "volumen de personas" a su cargo?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+        </div>
+
+        <div id="cap-4" class="block-container cap-block">
+            <h3 class="block-title"><span class="number">4</span> Mandos Intermedios y Relaciones Laborales</h3>
+            <div class="q-card">
+                <span class="q-text">4.1 ¿Plan de contingencia ante mandos directivos (resistencias fuertes)?
+                    ¿Desvinculación cultural?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+            <div class="q-card">
+                <span class="q-text">4.2 ¿Cómo gestionar el ego directivo en la migración hacia "Value Streams"?
+                    ¿Impacto medido en rotación en CaixaBank o Allianz?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+            <div class="q-card">
+                <span class="q-text">4.3 ¿Cuáles son vuestros protocolos preventivos ante picos de estrés o conflictos
+                    sindicales debido a la reorganización laboral?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+        </div>
+
+        <div id="cap-5" class="block-container cap-block">
+            <h3 class="block-title"><span class="number">5</span> Planes de Carrera y Fidelización</h3>
+            <div class="q-card">
+                <span class="q-text">5.1 ¿Cómo formalizar contractualmente nuevos roles que no existen en el Convenio de
+                    Seguros?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+            <div class="q-card">
+                <span class="q-text">5.2 ¿Cómo se traducen los niveles de madurez ágil en criterios de promoción
+                    salarial tangibles y defendibles?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+
+        </div>
+
+        <div id="cap-6" class="block-container cap-block">
+            <h3 class="block-title"><span class="number">6</span> Atracción de Talento y Burnout</h3>
+
+            <div class="q-card">
+                <span class="q-text">6.1 Estrategias concretas para evitar el burnout en los equipos durante el escalado
+                    ?.</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+        </div>
+
+        <div id="cap-7" class="block-container cap-block">
+            <h3 class="block-title"><span class="number">7</span> Organización del Trabajo</h3>
+            <div class="q-card">
+                <span class="q-text">7.1 Gestión de vacaciones centralizadas vs. necesidades de los sprints de los
+                    squads activos.</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+            <div class="q-card">
+                <span class="q-text">7.2 ¿Cómo cumplir de forma segura con el registro horario obligatorio (art. 34.9
+                    ET) en ecosistemas tan ágiles?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+        </div>
+
+        <div id="cap-8" class="block-container cap-block">
+            <h3 class="block-title"><span class="number">8</span> Inteligencia Artificial</h3>
+            <div class="q-card">
+                <span class="q-text">8.1 Sobre el "Asistente PO con IA" que proponéis: ¿Qué medidas concretas garantizan la privacidad de los datos de nuestros empleados? ¿Habéis superado auditorías de cumplimiento RGPD al implantar esta herramienta experta en otras compañías?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+        </div>
+
+        <div id="cap-10" class="block-container cap-block bonus-card">
+            <h3 class="block-title" style="color: #b7791f;"><span class="number" style="background: #d69e2e;">★</span>
+                Pregunta de Cierre</h3>
+            <div class="q-card" style="border:none; box-shadow:none; padding-top:0;">
+                <span class="q-text" style="color: #975a16; font-size: 1.2em;">¿Cuál es, en vuestra experiencia, la
+                    razón principal de fracaso de estas transformaciones y qué riesgo concreto detectáis en LDA?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Go Top Button -->
+    <a href="#top" class="go-top" title="Volver al inicio">↑</a>
+
+</body>
+
+</html>

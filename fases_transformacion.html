@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard RRHH - Fases del Proyecto</title>
+    <style>
+        :root {
+            --primary-red: #da291c;
+            --eraneos-blue: #0056b3;
+            --capgemini-gray: #4b4b4b;
+            --bg-light: #f8f9fa;
+            --text-dark: #212529;
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-red) 0%, #b01e15 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2.2em;
+            letter-spacing: 1px;
+        }
+
+        .header p {
+            margin-top: 10px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .main-container {
+            max-width: 1000px;
+            margin: -30px auto 50px;
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .intro-text {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 40px;
+            text-align: justify;
+        }
+
+        .block-title {
+            color: #444;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 8px;
+            margin: 40px 0 20px;
+            font-size: 1.4em;
+            display: flex;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .block-title span {
+            background: var(--primary-red);
+            width: 35px;
+            height: 35px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            margin-right: 15px;
+            font-size: 1rem;
+            color: white;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-left: 4px solid var(--eraneos-blue);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: transform 0.2s;
+        }
+
+        .card.card-orange { border-left-color: #ff9800; }
+        .card.card-green { border-left-color: #4caf50; }
+        .card.card-purple { border-left-color: #9c27b0; }
+        .card.card-red { border-left-color: var(--primary-red); }
+
+        .card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transform: translateY(-2px);
+        }
+
+        .phase-title {
+            font-weight: bold;
+            color: var(--eraneos-blue);
+            font-size: 1.1em;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .card-orange .phase-title { color: #ff9800; }
+        .card-green .phase-title { color: #4caf50; }
+        .card-purple .phase-title { color: #9c27b0; }
+        .card-red .phase-title { color: var(--primary-red); }
+
+        .content-text {
+            color: #444;
+            margin: 0;
+        }
+
+        .extra-section {
+            background-color: #fff9e6;
+            border: 2px solid #ffcc00;
+            border-radius: 8px;
+            padding: 25px;
+            margin-top: 50px;
+        }
+
+        .extra-section h2 {
+            color: #856404;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .extra-section h2::before {
+            content: "💡";
+            margin-right: 10px;
+        }
+
+        .extra-item {
+            margin-bottom: 20px;
+        }
+        
+        .extra-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .extra-item h3 {
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+        
+        .extra-item p {
+            margin-top: 0;
+            color: #555;
+        }
+
+        /* TIMELINE GRAPHIC */
+        .timeline-graphic {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 50px;
+            padding: 25px;
+            background: #fdfdfd;
+            border: 1px solid #eaeaea;
+            border-radius: 10px;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.02);
+            page-break-inside: avoid;
+        }
+
+        .phase-col {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .phase-header {
+            background: var(--eraneos-blue);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 0.95em;
+            margin-bottom: 10px;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+        }
+
+        .phase-col:nth-child(2) .phase-header { background: #ff9800; }
+        .phase-col:nth-child(3) .phase-header { background: #4caf50; }
+        .phase-col:nth-child(4) .phase-header { background: var(--primary-red); }
+
+        .task-badge {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.85em;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+            color: #444;
+            transition: transform 0.2s;
+        }
+
+        .task-badge:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+            border-color: #bbb;
+        }
+
+        .task-badge.task-highlight {
+            border-left: 4px solid #ffcc00;
+            background: #fffcf0;
+            font-weight: 600;
+        }
+        
+        @media print {
+            .header {
+                background: none;
+                color: black;
+                border-bottom: 2px solid var(--primary-red);
+            }
+            .main-container {
+                box-shadow: none;
+                margin: 0;
+                padding: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <h1>Estrategia de RRHH y Fases de Intervención</h1>
+        <p>Integración de Proveedores (ERANEOS / CAPGEMINI) — Línea Directa Aseguradora</p>
+    </div>
+
+    <div class="main-container">
+
+        <p class="intro-text">
+            Para integrar de forma exitosa al departamento de Recursos Humanos en un proyecto de gran envergadura con consultoras, es fundamental actuar como socio estratégico desde el primer minuto. A continuación se detallan las fases de intervención para cada área clave.
+        </p>
+
+        <!-- TIMELINE GRAFICO -->
+        <div class="timeline-graphic">
+            <div class="phase-col">
+                <div class="phase-header">
+                    1. Contratación<br>
+                    <span style="font-size: 0.8em; font-weight: normal; opacity: 0.9;">(Mes 0)</span>
+                </div>
+                <div class="task-badge">Selección Roles</div>
+                <div class="task-badge">SLAs y KPIs RRHH</div>
+                <div class="task-badge">Prevención Cesión Ilegal</div>
+            </div>
+            <div class="phase-col">
+                <div class="phase-header">
+                    2. Arranque<br>
+                    <span style="font-size: 0.8em; font-weight: normal; opacity: 0.9;">(Meses 1-2)</span>
+                </div>
+                <div class="task-badge">Planes Retención Internos</div>
+                <div class="task-badge">Alineamiento Cultural</div>
+                <div class="task-badge">Protocolos y PRL</div>
+                <div class="task-badge task-highlight">Gestión del Cambio</div>
+            </div>
+            <div class="phase-col">
+                <div class="phase-header">
+                    3. Ejecución<br>
+                    <span style="font-size: 0.8em; font-weight: normal; opacity: 0.9;">(Meses 3-10)</span>
+                </div>
+                <div class="task-badge">Filtro Sustituciones</div>
+                <div class="task-badge">Monitorización eNPS</div>
+                <div class="task-badge">Mediación Clima Laboral</div>
+                <div class="task-badge task-highlight">Adopción Cambio</div>
+            </div>
+            <div class="phase-col">
+                <div class="phase-header">
+                    4. Cierre<br>
+                    <span style="font-size: 0.8em; font-weight: normal; opacity: 0.9;">(Meses 11-12+)</span>
+                </div>
+                <div class="task-badge">Desembolso Incentivos</div>
+                <div class="task-badge task-highlight">Transferencia de Conocimiento</div>
+            </div>
+        </div>
+
+        <!-- SELECCION -->
+        <div class="block-title"><span>1</span> Selección</div>
+
+        <div class="card">
+            <span class="phase-title">Fase Actual (Contratación)</span>
+            <p class="content-text">Involucración inmediata en la validación del <strong>"Key Personnel"</strong> propuesto en la oferta técnica. RRHH debe validar si esos perfiles tienen las soft skills necesarias y encaje cultural, no solo evaluar sus currículums técnicos.</p>
+        </div>
+
+        <div class="card card-green">
+            <span class="phase-title">Fase de Ejecución</span>
+            <p class="content-text">Establecer el protocolo de sustitución. Si un consultor del proveedor se marcha o no funciona, RRHH debe tener capacidad de veto o de realizar entrevistas de validación (filtro de garantía) para los reemplazos, evitando que el nivel de calidad baje.</p>
+        </div>
+
+        <!-- SUBCONTRATACION -->
+        <div class="block-title"><span>2</span> Gestión de la Subcontratación</div>
+
+        <div class="card">
+            <span class="phase-title">Fase Actual (Contratación)</span>
+            <p class="content-text">En colaboración con Legal, revisar los contratos para mitigar el <strong>riesgo de cesión ilegal de trabajadores</strong>. Establecer fronteras firmes: quién da directrices (debe ser el proveedor) y protocolos de actuación.</p>
+        </div>
+
+        <div class="card card-orange">
+            <span class="phase-title">Fase de Onboarding y Ejecución</span>
+            <p class="content-text">Definición y control estricto del <em>Onboarding/Offboarding</em> administrativo (accesos a sistemas, confidencialidad, cumplimiento de normativas de las instalaciones) para el personal externo.</p>
+        </div>
+
+        <!-- KPI -->
+        <div class="block-title"><span>3</span> Definición de KPI</div>
+
+        <div class="card">
+            <span class="phase-title">Fase Actual (Contratación)</span>
+            <p class="content-text">Introducir KPIs específicos en los SLAs. Ejemplos críticos: <em>Tasa de rotación máxima</em> de consultores, <em>Time-to-fill</em> de vacantes, y el <em>eNPS</em> (índice de satisfacción) del equipo mixto.</p>
+        </div>
+
+        <div class="card card-purple">
+            <span class="phase-title">Fase de Monitoreo (Ejecución)</span>
+            <p class="content-text">Revisión y evaluación mensual o trimestral de estos KPIs en los comités de dirección del proyecto exigiendo planes de acción en caso de desviación.</p>
+        </div>
+
+        <!-- RETRIBUCION -->
+        <div class="block-title"><span>4</span> Retribución</div>
+
+        <div class="card card-orange">
+            <span class="phase-title">Fase de Arranque</span>
+            <p class="content-text">Diseñar paquetes de retención, bonos por objetivos o planes de incentivos vinculados a los hitos del proyecto <strong>para el equipo interno clave</strong>, mitigando el riesgo de fuga de talento por sobrecarga durante la implantación.</p>
+        </div>
+
+        <div class="card card-red">
+            <span class="phase-title">Fase de Cierre</span>
+            <p class="content-text">Evaluación del cumplimiento de los hitos y métricas acordadas para proceder al desembolso de los incentivos variables retenidos.</p>
+        </div>
+
+        <!-- PERSONAS -->
+        <div class="block-title"><span>5</span> Gestión de Personas</div>
+
+        <div class="card card-orange">
+            <span class="phase-title">Fase de Onboarding</span>
+            <p class="content-text">Fomentar el alineamiento cultural. El proveedor debe entender los valores estructurales de la empresa y asimilar la forma en la que se trabaja y se comunica.</p>
+        </div>
+
+        <div class="card card-green">
+            <span class="phase-title">Fase de Ejecución y Cierre</span>
+            <p class="content-text">Mediación continua. RRHH debe estar vigilante ante la fricción entre el personal interno y externo, velando por el clima laboral y previniendo dinámicas tóxicas de "nosotros vs. ellos".</p>
+        </div>
+
+        <!-- EXTRA -->
+        <div class="extra-section">
+            <h2>Áreas ADICIONALES CRÍTICAS</h2>
+            
+            <div class="extra-item">
+                <h3>A. Gestión del Cambio y Comunicación Interna (Arranque - Cierre)</h3>
+                <p>El mayor riesgo es la resistencia de la plantilla. RRHH debe definir un plan de comunicación estructurado para reducir la incertidumbre laboral y patrocinar a embajadores clave que faciliten la adopción del nuevo modelo.</p>
+            </div>
+            
+            <div class="extra-item">
+                <h3>B. Transferencia de Conocimiento (Fase de Transición)</h3>
+                <p>Crear un "Plan de sombra" (Shadowing). Los consultores deben transmitir su conocimiento para capacitar a los profesionales internos antes de irse. El proyecto no debe generar dependencia vitalicia del proveedor.</p>
+            </div>
+
+            <div class="extra-item">
+                <h3>C. PRL y Protocolos Internos (Fase de Arranque)</h3>
+                <p>Gestionar toda la <strong>Coordinación de Actividades Empresariales (CAE)</strong> e integrar al proveedor en protocolos universales de oficina (evacuación, código ético, protocolos anti-acoso).</p>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

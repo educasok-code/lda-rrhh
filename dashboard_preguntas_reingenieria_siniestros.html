@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard RRHH Premium - Reingeniería Siniestros Motor</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-red: #da291c;
+            --primary-red-light: #fce8e6;
+            --mckinsey-blue: #051c2c;
+            --mckinsey-light: #e9f2fa;
+            --bip-rojo: #d30000;
+            --bip-light: #fbecec;
+            --bg-color: #f4f7fa;
+            --text-main: #2d3748;
+            --text-muted: #718096;
+            --card-bg: #ffffff;
+            --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --radius-lg: 16px;
+            --radius-md: 10px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Hero Header */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-red) 0%, #8b1208 100%);
+            color: white;
+            padding: 60px 20px 80px;
+            text-align: center;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            font-weight: 800;
+            margin: 0 0 10px 0;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            font-weight: 300;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: -40px auto 60px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Impressive Glassmorphism Index */
+        .index-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            box-shadow: var(--shadow-lg);
+            margin-bottom: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .index-panel h2 {
+            text-align: center;
+            font-size: 2em;
+            color: var(--text-main);
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
+
+        .index-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        @media(max-width: 768px) {
+            .index-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .index-card {
+            background: var(--bg-color);
+            border-radius: var(--radius-md);
+            padding: 25px;
+            border-left: 6px solid var(--text-muted);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .index-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .index-card.mckinsey {
+            border-left-color: var(--mckinsey-blue);
+            background: var(--mckinsey-light);
+        }
+
+        .index-card.bip {
+            border-left-color: var(--bip-rojo);
+            background: var(--bip-light);
+        }
+
+        .index-card h3 {
+            margin-top: 0;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .index-card.mckinsey h3 {
+            color: var(--mckinsey-blue);
+        }
+
+        .index-card.bip h3 {
+            color: var(--bip-rojo);
+        }
+
+        .index-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .index-list li {
+            margin-bottom: 10px;
+        }
+
+        .index-list a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            font-size: 0.95em;
+            transition: color 0.2s;
+            display: flex;
+            align-items: center;
+        }
+
+        .index-list a::before {
+            content: '→';
+            margin-right: 8px;
+            color: var(--primary-red);
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+
+        .index-list a:hover {
+            color: var(--primary-red);
+        }
+
+        .index-list a:hover::before {
+            transform: translateX(5px);
+        }
+
+        /* Provider Sections */
+        .provider-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 40px;
+            border-radius: var(--radius-lg);
+            color: white;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-md);
+        }
+
+        .provider-header h2 {
+            margin: 0;
+            font-size: 2.2em;
+            letter-spacing: 2px;
+        }
+
+        .header-mckinsey {
+            background: linear-gradient(135deg, var(--mckinsey-blue) 0%, #001221 100%);
+        }
+
+        .header-bip {
+            background: linear-gradient(135deg, var(--bip-rojo) 0%, #7d0000 100%);
+        }
+
+        .block-container {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow-sm);
+            border-top: 4px solid var(--text-muted);
+            transition: box-shadow 0.3s;
+        }
+
+        .block-container:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .block-container.mckinsey-block {
+            border-top-color: var(--mckinsey-blue);
+        }
+
+        .block-container.bip-block {
+            border-top-color: var(--bip-rojo);
+        }
+
+        .block-title {
+            font-size: 1.5em;
+            color: var(--text-main);
+            margin-top: 0;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+        }
+
+        .block-title span.number {
+            background: var(--primary-red);
+            color: white;
+            width: 36px;
+            height: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            margin-right: 15px;
+            font-size: 0.9em;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+        }
+
+        /* Question Cards */
+        .q-card {
+            background: #ffffff;
+            border: 1px solid #edf2f7;
+            border-radius: var(--radius-md);
+            padding: 25px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .q-card::before {
+            content: 'Q';
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: var(--text-muted);
+            color: white;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .mckinsey-block .q-card::before {
+            background: var(--mckinsey-blue);
+        }
+
+        .bip-block .q-card::before {
+            background: var(--bip-rojo);
+        }
+
+        .q-text {
+            font-weight: 600;
+            font-size: 1.05em;
+            color: #2d3748;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .answer-box {
+            background-color: #f7fafc;
+            border: 2px dashed #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            min-height: 100px;
+            color: #4a5568;
+            font-style: italic;
+            transition: all 0.3s;
+            outline: none;
+            cursor: text;
+        }
+
+        .answer-box:focus {
+            background-color: #ffffff;
+            border: 2px solid var(--primary-red);
+            font-style: normal;
+            box-shadow: 0 0 0 4px var(--primary-red-light);
+        }
+
+        .answer-box:empty:before {
+            content: "✍️ Haz clic aquí para documentar la respuesta...";
+            color: #a0aec0;
+        }
+
+        .bonus-card {
+            border: 2px solid #ecc94b;
+            background: #fffff0;
+        }
+
+        .bonus-card::before {
+            background: #d69e2e;
+            content: '★';
+            font-size: 14px;
+        }
+
+        /* Go to top button */
+        .go-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary-red);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            box-shadow: var(--shadow-md);
+            font-size: 24px;
+            z-index: 100;
+            transition: transform 0.3s, background 0.3s;
+        }
+
+        .go-top:hover {
+            transform: translateY(-5px);
+            background: #b01e15;
+        }
+
+        @media print {
+            .hero, .index-panel, .go-top {
+                display: none;
+            }
+            body {
+                background: white;
+            }
+            .container {
+                margin: 0;
+                max-width: 100%;
+            }
+            .block-container {
+                box-shadow: none;
+                border: 1px solid #eee;
+                margin-bottom: 20px;
+                padding: 20px;
+                break-inside: avoid;
+            }
+            .q-card {
+                border: none;
+                padding: 10px 0;
+            }
+            .answer-box {
+                border: 1px solid #ccc;
+                min-height: 80px;
+            }
+            .answer-box:empty:before {
+                content: "";
+            }
+        }
+    </style>
+</head>
+
+<body id="top">
+
+    <div class="hero">
+        <h1>Dashboard Estratégico de RRHH</h1>
+        <p>Batería de Preguntas para Proveedores - Proyecto: Reingeniería Siniestros Motor</p>
+    </div>
+
+    <div class="container">
+
+        <!-- INDEX SECTION -->
+        <div class="index-panel">
+            <h2>📑 Índice de Contenidos</h2>
+            <div class="index-grid">
+
+                <!-- MCKINSEY INDEX -->
+                <div class="index-card mckinsey">
+                    <h3>McKinsey & Company</h3>
+                    <ul class="index-list">
+                        <li><a href="#mckinsey-1">1. Rediseño Organizativo y Reskilling</a></li>
+                        <li><a href="#mckinsey-2">2. Estructura y Tramos de Control</a></li>
+                        <li><a href="#mckinsey-3">3. Gestión del Cambio y Cultura</a></li>
+                        <li><a href="#mckinsey-4">4. Inteligencia Artificial y Privacidad Laboral</a></li>
+                        <li><a href="#mckinsey-10">★ Pregunta de Cierre / Experiencia</a></li>
+                    </ul>
+                </div>
+
+                <!-- BIP CONSULTING INDEX -->
+                <div class="index-card bip">
+                    <h3>BIP Consulting</h3>
+                    <ul class="index-list">
+                        <li><a href="#bip-1">1. Necesidades Organizativas y Nuevos Roles (Skilling)</a></li>
+                        <li><a href="#bip-2">2. Modelo de Trabajo, Squads y Dedicación</a></li>
+                        <li><a href="#bip-3">3. Presencialidad y Modelos Híbridos</a></li>
+                        <li><a href="#bip-4">4. Adopción, Medición de KPIs y Cultura</a></li>
+                        <li><a href="#bip-10">★ Pregunta de Cierre / Experiencia</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- MCKINSEY SECTION                               -->
+        <!-- ============================================== -->
+        <div class="provider-header header-mckinsey">
+            <h2>REUNIÓN: McKINSEY & COMPANY</h2>
+            <span>Transformación End-to-End, InsureX & Offshoring</span>
+        </div>
+
+        <div id="mckinsey-1" class="block-container mckinsey-block">
+            <h3 class="block-title"><span class="number">1</span> Rediseño Organizativo y Reskilling</h3>
+            <div class="q-card">
+                <span class="q-text">1.1 En vuestra propuesta mencionáis la "Internalización / externalización de procesos (offshoring / CoEs)". Desde RRHH, ¿qué volumen de la plantilla actual estimáis que se verá afectada directamente por este offshoring en los primeros 12 a 18 meses?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+            <div class="q-card">
+                <span class="q-text">1.2 Proponéis hacer un "reskilling del talento". ¿Hacia qué nuevos roles se deben reconvertir los tramitadores actuales ante la entrada masiva de vuestros "Motores de IA" de estimación propuestos?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+        </div>
+
+        <div id="mckinsey-2" class="block-container mckinsey-block">
+            <h3 class="block-title"><span class="number">2</span> Estructura y Tramos de Control</h3>
+            <div class="q-card">
+                <span class="q-text">2.1 Habláis de un "rediseño de la estructura organizativa (incl. tramos de control)". Según nuestras métricas actuales de Línea Directa y vuetros benchmarks (Finalta), ¿Cuál es el "span of control" óptimo para equipos supervisando IA?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+        </div>
+
+        <div id="mckinsey-3" class="block-container mckinsey-block">
+            <h3 class="block-title"><span class="number">3</span> Gestión del Cambio y Cultura</h3>
+            <div class="q-card">
+                <span class="q-text">3.1 Identificáis que el 39% de las transformaciones fracasan por resistencia al cambio. Vosotros proponéis una figura de "Embajadores del cambio". ¿Qué incentivos no-financieros han demostrado ser más efectivos en el sector seguros para estos embajadores?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+            <div class="q-card">
+                <span class="q-text">3.2 Planteáis una "Transferencia progresiva de capacidades a equipos LDA". ¿Cómo se evaluará objetivamente que el equipo interno de Línea Directa ha adquirido el nivel tecnológico y competencial necesario para operar vuestros sistemas InsureX de forma autónoma?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+        </div>
+
+        <div id="mckinsey-4" class="block-container mckinsey-block">
+            <h3 class="block-title"><span class="number">4</span> Inteligencia Artificial y Privacidad Laboral</h3>
+            <div class="q-card">
+                <span class="q-text">4.1 La inclusión de herramientas avanzadas GenAI cambiará la naturaleza del trabajo y evaluación. ¿Cómo garantizamos la transparencia algorítmica ante el Comité de Empresa para evitar que la IA sea percibida como una herramienta de vigilancia de tiempos de operación?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+        </div>
+
+        <div id="mckinsey-10" class="block-container mckinsey-block bonus-card">
+            <h3 class="block-title" style="color: #b7791f;"><span class="number" style="background: #d69e2e;">★</span> Pregunta de Cierre</h3>
+            <div class="q-card" style="border:none; box-shadow:none; padding-top:0;">
+                <span class="q-text" style="color: #975a16; font-size: 1.2em;">Teniendo en cuenta vuestra experiencia (ej. el proyecto con Aviva en UK), ¿cuál fue la tensión más grave vivida desde Recursos Humanos y Relaciones Laborales en la reorganización, y cómo se mitigó el riesgo?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- BIP CONSULTING SECTION                         -->
+        <!-- ============================================== -->
+        <div style="margin-top: 80px;"></div>
+        <div class="provider-header header-bip">
+            <h2>REUNIÓN: BIP CONSULTING</h2>
+            <span>Reingeniería de procesos, Co-creación & BPM</span>
+        </div>
+
+        <div id="bip-1" class="block-container bip-block">
+            <h3 class="block-title"><span class="number">1</span> Necesidades Organizativas y Nuevos Roles (Skilling)</h3>
+            <div class="q-card">
+                <span class="q-text">1.1 En vuestra matriz de nuevos roles TO-BE, identificáis figuras técnicas de supervisión como "Analista Fraude IA" o "AI Ops". ¿Recomendáis formar intensivamente a nuestra plantilla tradicional ("upskilling") o acudir al mercado para contratar este nuevo volumen tecnológico?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+            <div class="q-card">
+                <span class="q-text">1.2 En su experiencia implantando automatización OCR y NLP, ¿Cuál es el impacto volumétrico temporal estimado para el equipo de "Recepción y validación de facturas"?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+        </div>
+
+        <div id="bip-2" class="block-container bip-block">
+            <h3 class="block-title"><span class="number">2</span> Modelo de Trabajo, Squads y Dedicación</h3>
+            <div class="q-card">
+                <span class="q-text">2.1 Solicitáis la creación de 2-3 squads en Línea Directa con una dedicación del 80-100% por parte de perfiles clave para el modelado en ARIS. ¿Cómo propone BIP asegurar el "Business as Usual" (trabajo diario) de estos empleados durante los primeros meses vitales del proyecto?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+        </div>
+
+        <div id="bip-3" class="block-container bip-block">
+            <h3 class="block-title"><span class="number">3</span> Presencialidad y Modelos Híbridos</h3>
+            <div class="q-card">
+                <span class="q-text">3.1 Planteáis vuestro enfoque de consultoría con un "60-80% de presencialidad en las fases iniciales". ¿Cómo convivirá esta exigencia de alta presencialidad con nuestras políticas de flexibilidad laboral y teletrabajo sin generar brechas entre equipos?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+        </div>
+
+        <div id="bip-4" class="block-container bip-block">
+            <h3 class="block-title"><span class="number">4</span> Adopción, Medición de KPIs y Cultura</h3>
+            <div class="q-card">
+                <span class="q-text">4.1 Proponéis medir la transformación con "KPIs de Comportamiento" para evaluar el cambio en las formas de trabajo. ¿Qué métricas concretas evaluaréis y cómo evitamos fricciones legales/sindicales al monitorizar el "comportamiento" de la operativa de un tramitador?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+        </div>
+
+        <div id="bip-10" class="block-container bip-block bonus-card">
+            <h3 class="block-title" style="color: #b7791f;"><span class="number" style="background: #d69e2e;">★</span> Pregunta de Cierre</h3>
+            <div class="q-card" style="border:none; box-shadow:none; padding-top:0;">
+                <span class="q-text" style="color: #975a16; font-size: 1.2em;">Teniendo en cuenta vuestra experiencia, ¿cuál fue la tensión más grave vivida desde Recursos Humanos y Relaciones Laborales en la reorganización, y cómo se mitigó el riesgo?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+        </div>
+
+        <div class="print-note-box"
+            style="text-align: center; margin: 60px 0 20px; padding: 20px; background: #fff5f5; border-radius: 12px; border: 2px dashed #da291c;">
+            <p style="margin: 0; color: #c52219; font-size: 1.1em;">
+                💡 <strong>¡Importante!</strong> Una vez añadidas las anotaciones de las reuniones, pulsa <strong>Control + P</strong> y
+                selecciona <em>"Guardar como PDF"</em> para documentar tus respuestas de forma segura.
+            </p>
+        </div>
+
+    </div>
+
+    <!-- Go Top Button -->
+    <a href="#top" class="go-top" title="Volver al inicio">↑</a>
+
+</body>
+
+</html>

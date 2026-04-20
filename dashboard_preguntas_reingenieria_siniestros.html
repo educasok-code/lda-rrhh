@@ -384,6 +384,49 @@
                 content: "";
             }
         }
+
+        /* Critical Alert Section */
+        .critical-panel {
+            background: #fff5f5;
+            border: 2px solid #da291c;
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: var(--shadow-md);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .critical-panel::before {
+            content: '!';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 150px;
+            color: rgba(218, 41, 28, 0.05);
+            font-weight: 800;
+            font-family: 'Outfit';
+        }
+
+        .critical-title {
+            color: var(--primary-red);
+            font-size: 1.8em;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .critical-badge {
+            background: var(--primary-red);
+            color: white;
+            font-size: 0.5em;
+            padding: 4px 12px;
+            border-radius: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            vertical-align: middle;
+        }
     </style>
 </head>
 
@@ -395,9 +438,7 @@
     </div>
 
     <div class="container">
-Capilaridad: "¿Cómo pensáis llegar individualmente a 400 personas con un equipo tan reducido de gestión del cambio?"
-Paz Social: "¿Cuál es el plan específico de comunicación para el Comité de Empresa ante las menciones de offshoring y reducción de capas?"
-Reskilling Real: "No me habléis de 'bootcamps'. Decidme qué hacéis con un tramitador de 50 años que lleva 20 haciendo lo mismo y ahora tiene que supervisar un algoritmo de IA."
+
         <!-- INDEX SECTION -->
         <div class="index-panel">
             <h2>📑 Índice de Contenidos</h2>
@@ -407,6 +448,7 @@ Reskilling Real: "No me habléis de 'bootcamps'. Decidme qué hacéis con un tra
                 <div class="index-card mckinsey">
                     <h3>McKinsey & Company</h3>
                     <ul class="index-list">
+                        <li style="margin-bottom: 20px;"><a href="#critical-focus" style="color: var(--primary-red); font-weight: 800;">🚨 FOCO CRÍTICO: Impacto Humano</a></li>
                         <li><a href="#mckinsey-1">1. Rediseño Organizativo y Reskilling</a></li>
                         <li><a href="#mckinsey-2">2. Estructura y Tramos de Control</a></li>
                         <li><a href="#mckinsey-3">3. Gestión del Cambio y Cultura</a></li>
@@ -427,6 +469,37 @@ Reskilling Real: "No me habléis de 'bootcamps'. Decidme qué hacéis con un tra
                     </ul>
                 </div>
 
+            </div>
+        </div>
+
+        <!-- SECCIÓN CRÍTICA - FILTRO DIRECTORA RRHH -->
+        <div id="critical-focus" class="critical-panel">
+            <h2 class="critical-title">
+                ⚠️ Foco Crítico: Impacto Humano (400 personas) 
+                <span class="critical-badge">Prioridad Alta</span>
+            </h2>
+            <p style="font-weight: 600; color: #4a5568; margin-bottom: 25px;">
+                Estas preguntas han sido diseñadas para abordar la preocupación de la Directora de RRHH sobre la "pobreza" de la gestión del cambio en la propuesta de McKinsey ante la envergadura del proyecto.
+            </p>
+
+            <div class="q-card" style="border-left: 6px solid var(--primary-red);">
+                <span class="q-text">1. Capacidad de Acompañamiento: Con 400 personas afectadas, vuestra propuesta solo contempla 1 especialista en Change Management. ¿Cómo vais a garantizar físicamente el acompañamiento individual y la gestión del miedo a la IA sin que el equipo de RRHH colapse por la carga extra de soporte?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+
+            <div class="q-card" style="border-left: 6px solid var(--primary-red);">
+                <span class="q-text">2. Estrategia de Relaciones Laborales: Mencionáis "offshoring" y reducción de capas de 8 a 4. ¿Cuál es vuestro plan estratégico específico para evitar una crisis de paz social con el Comité de Empresa ante estas medidas tan disruptivas?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+
+            <div class="q-card" style="border-left: 6px solid var(--primary-red);">
+                <span class="q-text">3. Cambio de Identidad: En Siniestros hay mucha antigüedad. El reto no es enseñar "Agile", es el cambio de "Decididor Experto" a "Supervisor de Algoritmos". ¿Qué metodología psicopedagógica vais a usar para este cambio de identidad profesional?</span>
+                <div class="answer-box" contenteditable="true"></div>
+            </div>
+
+            <div class="q-card" style="border-left: 6px solid var(--primary-red);">
+                <span class="q-text">4. Blindaje del 'Business as Usual': Durante los 18 meses de transformación, ¿quién asume la responsabilidad legal y operativa si la curva de aprendizaje de las 400 personas degrada el servicio al cliente más allá de lo aceptable?</span>
+                <div class="answer-box" contenteditable="true"></div>
             </div>
         </div>
 
@@ -526,7 +599,7 @@ Reskilling Real: "No me habléis de 'bootcamps'. Decidme qué hacéis con un tra
         <div id="bip-4" class="block-container bip-block">
             <h3 class="block-title"><span class="number">4</span> Adopción, Medición de KPIs y Cultura</h3>
             <div class="q-card">
-                <span class="q-text">4.1 Proponéis medir la transformación con "KPIs de Comportamiento" para evaluar el cambio en las formas de trabajo. ¿Qué métricas concretas evaluaréis y cómo evitamos fricciones legales al monitorizar el "comportamiento" de la operativa de un tramitador?</span>
+                <span class="q-text">4.1 Proponéis medir la transformación con "KPIs de Comportamiento" para evaluar el cambio en las formas de trabajo. ¿Qué métricas concretas evaluaréis y cómo evitamos fricciones legales/sindicales al monitorizar el "comportamiento" de la operativa de un tramitador?</span>
                 <div class="answer-box" contenteditable="true"></div>
             </div>
         </div>
